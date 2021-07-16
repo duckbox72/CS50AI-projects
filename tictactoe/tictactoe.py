@@ -2,6 +2,9 @@
 Tic Tac Toe Player
 """
 
+# TODO delethe this
+
+
 import math
 import copy
 
