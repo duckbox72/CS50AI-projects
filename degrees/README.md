@@ -8,4 +8,4 @@ It uses the Breadh-First Search alghorith approach to find the shortest path bew
  **shortest_path(source, target)** function located in [**degrees.py**](degrees.py) is responsible for the actual search. It makes a call the QueueFrontier() function in [**utils.py**](utils.py) in order do remove nodes from the frontier in a first-in, first-out (queue) behaviour finding for sure the shortest path, if there is a possible one.
 
 
-Created by Luis Felipe Klaus 
+Implemented by Luis Felipe Klaus 

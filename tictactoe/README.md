@@ -19,7 +19,7 @@ While [**runner.py**](runner.py) is responsible for the actual game board render
 * **min_value(state)** - feeds minimax(board) returning the minimum value for given a state (board).
 
 
-Created by Luis Felipe Klaus 
+Implemented by Luis Felipe Klaus 
 
 
 
