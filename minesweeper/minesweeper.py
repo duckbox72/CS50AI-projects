@@ -189,12 +189,32 @@ class MinesweeperAI():
         self.mark_safe(cell)
 
         # 3) add a new sentence to the AI's knowledge base
+        #    based on the value of `cell` and `count` 
+        i, j = cell
+        neighbors = set()
+        cells = set()
+
+        # Generic case finds add all 8 neighbors
+        for n in range(-1, 2):
+            for m in range(-1, 2):
+                # Filter out corner cases: self and out of bounds
+                not_own_cell = (i + n, j + m) != cell
+                not_negative_index = i + n >= 0 and j + m >= 0  
+                not_out_of_bounds_index = i + n < self.height and j + m < self.width       
                 
+                if not_own_cell and not_negative_index and not_out_of_bounds_index  : 
+                    neighbors.add((i + n, j + m))
 
 
-        print("MOVIES MADE: \n", self.moves_made)
-        print("MARKED SAFE: \n",self.safes)
-        print("KNOWLEDGE: \n",self.knowledge)
+       
+        print("MOVIES MADE: ", self.moves_made)
+        print("MARKED SAFE: ",self.safes)
+        print("KNOWLEDGE: ",self.knowledge)
+        print("safes: ",self.safes)
+        print("mines: ",self.mines)
+
+
+        print("Neighbors", neighbors)
 
         #raise NotImplementedError
 
@@ -208,7 +228,7 @@ class MinesweeperAI():
         and self.moves_made, but should not modify any of those values.
         """
         #raise NotImplementedError
-        return (1,1)
+        return (0,0)
 
     def make_random_move(self):
         """
