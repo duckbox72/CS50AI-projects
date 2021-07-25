@@ -105,27 +105,38 @@ class Sentence():
         """
         Returns the set of all cells in self.cells known to be mines.
         """
-        raise NotImplementedError
+        if len(self.cells) == self.count:
+            return self.cells
+        
+        else:
+            return set()
 
     def known_safes(self):
         """
         Returns the set of all cells in self.cells known to be safe.
         """
-        raise NotImplementedError
+        if self.count == 0:
+            return self.cells
+        else:
+            return set()
 
     def mark_mine(self, cell):
         """
         Updates internal knowledge representation given the fact that
         a cell is known to be a mine.
         """
-        raise NotImplementedError
+        # Remove mine from sentence and update it's count
+        if cell in self.cells:
+            self.cells.remove(cell)
+            self.count -= 1
 
     def mark_safe(self, cell):
         """
         Updates internal knowledge representation given the fact that
         a cell is known to be safe.
         """
-        raise NotImplementedError
+        if cell in self.cells:
+            self.cells.remove(cell)
 
 
 class MinesweeperAI():
@@ -197,24 +208,37 @@ class MinesweeperAI():
         # Generic case finds add all 8 neighbors
         for n in range(-1, 2):
             for m in range(-1, 2):
-                # Filter out corner cases: self and out of bounds
-                not_own_cell = (i + n, j + m) != cell
-                not_negative_index = i + n >= 0 and j + m >= 0  
-                not_out_of_bounds_index = i + n < self.height and j + m < self.width       
-                
-                if not_own_cell and not_negative_index and not_out_of_bounds_index  : 
+                # Filter out corner cases (self cell and out of bounds) and add remaining to neighbors:
+                if (i + n, j + m) != cell and i + n >= 0 and j + m >= 0  and i + n < self.height and j + m < self.width: 
                     neighbors.add((i + n, j + m))
 
+        # Filter out neighbors that are already determined
+        for neighbor in neighbors:
+            if neighbor not in self.safes and neighbor not in self.mines:
+                cells.add(neighbor)
 
-       
+        # Create a Sentence instance and add to knowledge base
+        sentence = Sentence(cells, count)
+        if sentence not in self.knowledge:
+            self.knowledge.append(sentence)
+
+        #4) mark any additional cells as safe or as mines
+        #   if it can be concluded based on the AI's knowledge base
+
+        # Check for known 
+
+
+
         print("MOVIES MADE: ", self.moves_made)
-        print("MARKED SAFE: ",self.safes)
-        print("KNOWLEDGE: ",self.knowledge)
+        print("KNOWLEDGE size: ",len(self.knowledge))
+        for sentence in self.knowledge:
+            print(f"sentence : {sentence}") 
         print("safes: ",self.safes)
         print("mines: ",self.mines)
 
 
-        print("Neighbors", neighbors)
+        print("neighbors of last move", neighbors)
+        print(count)
 
         #raise NotImplementedError
 
