@@ -107,7 +107,6 @@ class Sentence():
         """
         if len(self.cells) == self.count:
             return self.cells
-        
         else:
             return set()
 
@@ -221,11 +220,15 @@ class MinesweeperAI():
         sentence = Sentence(cells, count)
         if sentence not in self.knowledge:
             self.knowledge.append(sentence)
-
+    
         #4) mark any additional cells as safe or as mines
         #   if it can be concluded based on the AI's knowledge base
+        self.mark_known()
 
-        # Check for known 
+        #5) add any new sentences to the AI's knowledge base
+        #   if they can be inferred from existing knowledge
+        
+        
 
 
 
@@ -238,10 +241,29 @@ class MinesweeperAI():
 
 
         print("neighbors of last move", neighbors)
-        print(count)
 
         #raise NotImplementedError
 
+
+    def mark_known(self):
+        known_safe_cells = set()
+        known_mine_cells = set()
+
+        for sentence in self.knowledge:
+            if sentence.known_safes() != set():
+                for cell in sentence.known_safes():
+                    known_safe_cells.add(cell)
+
+            if sentence.known_mines() != set():
+                for cell in sentence.known_mines():
+                    known_mine_cells.add(cell)      
+        
+        for cell in known_safe_cells:
+            self.mark_safe(cell)
+
+        for cell in known_mine_cells:
+            self.mark_mine(cell)
+                    
     def make_safe_move(self):
         """
         Returns a safe cell to choose on the Minesweeper board.
