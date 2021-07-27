@@ -210,25 +210,15 @@ class MinesweeperAI():
         #   if they can be inferred from existing knowledge        
         new_sentences = self.update_knowledge()
 
-        # Recursively add new inferred sentences to knowledge base     
+        # Recursively add new inferred sentences to knowledge base 
+        # until no more inferences can be made    
         while new_sentences:     
             for sentence in new_sentences:
                 self.knowledge.append(sentence)
                 self.mark_known_cells()
             
             new_sentences = self.update_knowledge()
-        
-                
-        print(("-=-=-=--=--==-=-=--=-=-=-=-=-=-=-=--=-=-=-=-=-=-="))
-        #print("neighbors of last move", neighbors)
-        print("MOVIES MADE: ", self.moves_made)
-        print("KNOWLEDGE size: ",len(self.knowledge))
-        for sentence in self.knowledge:
-            print(f"sentence : {sentence}") 
-        print("safes: ",self.safes)
-        print("mines: ",self.mines)
-        print("-=-=-=--=--==-=-=--=-=-=-=-=-=-=-=--=-=-=-=-=-=-=")
-
+    
     def add_sentence(self, cell, count):
         """
         Adds a sentence to knowledge base, based on a given move (cell, count).
@@ -292,7 +282,7 @@ class MinesweeperAI():
             if sentence.cells == set():
                 self.knowledge.remove(sentence)
 
-        # Add new inferred sentences to set(won't be added by default if already in set)
+        # Add new inferred sentences new_sentences list
         for sentenceX in self.knowledge:
             for sentenceY in self.knowledge:
                 if sentenceX != sentenceY:
@@ -314,8 +304,11 @@ class MinesweeperAI():
         This function may use the knowledge in self.mines, self.safes
         and self.moves_made, but should not modify any of those values.
         """
-        #raise NotImplementedError
-        return (1,1)
+        for move in self.safes:
+            if move not in self.moves_made and move not in self.mines:
+                return move
+
+        return None
 
     def make_random_move(self):
         """
@@ -324,4 +317,19 @@ class MinesweeperAI():
             1) have not already been chosen, and
             2) are not known to be mines
         """
-        raise NotImplementedError
+        
+        # Find and list all available moves
+        available_moves = []
+        
+        for i in range(self.height):
+            for j in range(self.width):
+                move = (i, j)
+                if move not in self.moves_made and move not in self.mines:
+                    available_moves.append(move)
+
+        # Return a random move if at least one move is available or None otherwise
+        if available_moves:
+            rand_index = random.randint(0, len(available_moves) - 1)
+            return available_moves[rand_index]
+        
+        return None
