@@ -200,6 +200,39 @@ class MinesweeperAI():
 
         # 3) add a new sentence to the AI's knowledge base
         #    based on the value of `cell` and `count` 
+        self.add_sentence(cell, count)
+    
+        #4) mark any additional cells as safe or as mines
+        #   if it can be concluded based on the AI's knowledge base
+        self.mark_known_cells()
+
+        #5) add any new sentences to the AI's knowledge base
+        #   if they can be inferred from existing knowledge        
+        new_sentences = self.update_knowledge()
+
+        # Recursively add new inferred sentences to knowledge base     
+        while new_sentences:     
+            for sentence in new_sentences:
+                self.knowledge.append(sentence)
+                self.mark_known_cells()
+            
+            new_sentences = self.update_knowledge()
+        
+                
+        print(("-=-=-=--=--==-=-=--=-=-=-=-=-=-=-=--=-=-=-=-=-=-="))
+        #print("neighbors of last move", neighbors)
+        print("MOVIES MADE: ", self.moves_made)
+        print("KNOWLEDGE size: ",len(self.knowledge))
+        for sentence in self.knowledge:
+            print(f"sentence : {sentence}") 
+        print("safes: ",self.safes)
+        print("mines: ",self.mines)
+        print("-=-=-=--=--==-=-=--=-=-=-=-=-=-=-=--=-=-=-=-=-=-=")
+
+    def add_sentence(self, cell, count):
+        """
+        Adds a sentence to knowledge base, based on a given move (cell, count).
+        """
         i, j = cell
         neighbors = set()
         cells = set()
@@ -211,7 +244,7 @@ class MinesweeperAI():
                 if (i + n, j + m) != cell and i + n >= 0 and j + m >= 0  and i + n < self.height and j + m < self.width: 
                     neighbors.add((i + n, j + m))
 
-        # Filter out neighbors that are already determined 
+        # Filter out neighbors whose state is already determined 
         for neighbor in neighbors:
             # When neighbor is known to be a mine, count minus 1 as the cell won't be added to cells set
             if neighbor in self.mines:
@@ -223,41 +256,6 @@ class MinesweeperAI():
         sentence = Sentence(cells, count)
         if sentence not in self.knowledge:
             self.knowledge.append(sentence)
-    
-        #4) mark any additional cells as safe or as mines
-        #   if it can be concluded based on the AI's knowledge base
-        self.mark_known_cells()
-
-        #5) add any new sentences to the AI's knowledge base
-        #   if they can be inferred from existing knowledge
-        
-        # Get inferred sentences if any
-        
-        new_sentences = self.update_knowledge()
-        
-        # Recursively add inferred sentences to knowledge base
-        while new_sentences:     
-            for sentence in new_sentences:
-                self.knowledge.append(sentence)
-            
-            # repeat steps 4 and 5 while new sentences are inferred
-            self.mark_known_cells()
-
-            new_sentences = self.update_knowledge()
-        
-                
-        print(("-=-=-=--=--==-=-=--=-=-=-=-=-=-=-=--=-=-=-=-=-=-="))
-        print("neighbors of last move", neighbors)
-        print("MOVIES MADE: ", self.moves_made)
-        print("KNOWLEDGE size: ",len(self.knowledge))
-        for sentence in self.knowledge:
-            print(f"sentence : {sentence}") 
-        print("safes: ",self.safes)
-        print("mines: ",self.mines)
-        print("-=-=-=--=--==-=-=--=-=-=-=-=-=-=-=--=-=-=-=-=-=-=")
-
-    
-
 
     def mark_known_cells(self):
         """
