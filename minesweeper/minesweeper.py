@@ -202,12 +202,12 @@ class MinesweeperAI():
         #    based on the value of `cell` and `count` 
         self.add_sentence(cell, count)
     
-        #4) mark any additional cells as safe or as mines
-        #   if it can be concluded based on the AI's knowledge base
+        # 4) mark any additional cells as safe or as mines
+        #    if it can be concluded based on the AI's knowledge base
         self.mark_known_cells()
 
-        #5) add any new sentences to the AI's knowledge base
-        #   if they can be inferred from existing knowledge        
+        # 5) add any new sentences to the AI's knowledge base
+        #    if they can be inferred from existing knowledge        
         new_sentences = self.update_knowledge()
 
         # Recursively add new inferred sentences to knowledge base 
@@ -231,16 +231,16 @@ class MinesweeperAI():
         for n in range(-1, 2):
             for m in range(-1, 2):
                 # Filter out corner cases (self cell and out of bounds) and add remaining to neighbors:
-                if (i + n, j + m) != cell and i + n >= 0 and j + m >= 0  and i + n < self.height and j + m < self.width: 
+                if (i + n, j + m) != cell and i + n >= 0 and j + m >= 0 and i + n < self.height and j + m < self.width: 
                     neighbors.add((i + n, j + m))
 
         # Filter out neighbors whose state is already determined 
         for neighbor in neighbors:
             # When neighbor is known to be a mine, count minus 1 as the cell won't be added to cells set
             if neighbor in self.mines:
-                count -=1 
+                count -= 1 
             if neighbor not in self.safes and neighbor not in self.mines:
-               cells.add(neighbor)
+                cells.add(neighbor)
 
         # Create a Sentence instance and add to knowledge base
         sentence = Sentence(cells, count)
