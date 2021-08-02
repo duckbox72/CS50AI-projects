@@ -15,12 +15,11 @@ def main():
     print(f"PageRank Results from Sampling (n = {SAMPLES})")
     for page in sorted(ranks):
         print(f"  {page}: {ranks[page]:.4f}")
-    """
     ranks = iterate_pagerank(corpus, DAMPING)
     print(f"PageRank Results from Iteration")
     for page in sorted(ranks):
         print(f"  {page}: {ranks[page]:.4f}")
-    """
+
 
 def crawl(directory):
     """
@@ -47,6 +46,7 @@ def crawl(directory):
         )
 
     return pages
+
 
 def transition_model(corpus, page, damping_factor):
     """
@@ -82,6 +82,7 @@ def transition_model(corpus, page, damping_factor):
 
     return model
 
+
 def sample_pagerank(corpus, damping_factor, n):
     """
     Return PageRank values for each page by sampling `n` pages
@@ -108,11 +109,12 @@ def sample_pagerank(corpus, damping_factor, n):
 
         page = next_page
     
-    # Divide each page count by number of samples to obtain the percentage
-    for page in pagerank.keys():
+    # Divide each page count by number of samples to obtain the probability
+    for page in pagerank:
         pagerank[page] /= n 
 
     return pagerank
+
 
 def iterate_pagerank(corpus, damping_factor):
     """
@@ -123,7 +125,18 @@ def iterate_pagerank(corpus, damping_factor):
     their estimated PageRank value (a value between 0 and 1). All
     PageRank values should sum to 1.
     """
-    raise NotImplementedError
+    pagerank = {}
+
+    # Set the initial pagerank of every page to 1 / N (equally likely to be on any page). 
+    for page in corpus:
+        pagerank[page] = 1 / len(corpus)
+        
+        
+        
+    #pagerank[page] = ((1 - damping_factor) / len(corpus)) + (damping_factor * PR(i) / )
+
+
+    return pagerank
 
 
 if __name__ == "__main__":
