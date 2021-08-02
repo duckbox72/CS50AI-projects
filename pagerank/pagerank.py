@@ -48,7 +48,6 @@ def crawl(directory):
 
     return pages
 
-
 def transition_model(corpus, page, damping_factor):
     """
     Return a probability distribution over which page to visit next,
@@ -58,7 +57,6 @@ def transition_model(corpus, page, damping_factor):
     linked to by `page`. With probability `1 - damping_factor`, choose
     a link at random chosen from all pages in the corpus.
     """
-    print(page, len(corpus[page]))
     
     model = {}
     links = corpus[page]
@@ -93,13 +91,28 @@ def sample_pagerank(corpus, damping_factor, n):
     their estimated PageRank value (a value between 0 and 1). All
     PageRank values should sum to 1.
     """
-    #raise NotImplementedError
+    pagerank = {}
 
+    # Choose a random page to be the starting page
     page = random.choice(list(corpus))
-    model = transition_model(corpus, page, damping_factor)
-    print(model)
+    
+    # Loop to generate n sample pages and 
+    for i in range(n):
+        model = transition_model(corpus, page, damping_factor)
+        next_page = random.choices(list(model.keys()), weights=list(model.values()), k=1)[0]
+        
+        if next_page not in pagerank:
+            pagerank[next_page] = 1
+        else:
+            pagerank[next_page] += 1
 
-    return {"1.html": .25, "2.html": .25, "3.html": .50}
+        page = next_page
+    
+    # Divide each page count by number of samples to obtain the percentage
+    for page in pagerank.keys():
+        pagerank[page] /= n 
+
+    return pagerank
 
 def iterate_pagerank(corpus, damping_factor):
     """
