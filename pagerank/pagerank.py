@@ -61,8 +61,28 @@ def transition_model(corpus, page, damping_factor):
     print(page, len(corpus[page]))
     
     model = {}
+    links = corpus[page]
 
-    return {"1.html": .25, "2.html": .25, "3.html": .25, "4.html": .25}
+    # If page has no outgoing links, return a model (probability distribution) 
+    # that chooses randomly among all pages with equal probability.
+    if len(links) == 0:
+        for key in corpus.keys():
+            model[key] = 1 / len(corpus.keys())
+        return model
+
+    # Populate a model where a random surfer will randomicaly choose from 
+    # current page links with damping_factor probability, and choose from 
+    # all pages in corpus with (1 - damping_factor) probability.
+    for link in links:
+        model[link] = 1 / len(links) * damping_factor
+
+    for key in corpus.keys():
+        if key not in model.keys():
+            model[key] = 1 / len(corpus) * (1 - damping_factor)
+        else:
+            model[key] += 1 / len(corpus) * (1 - damping_factor)
+
+    return model
 
 def sample_pagerank(corpus, damping_factor, n):
     """
@@ -76,11 +96,10 @@ def sample_pagerank(corpus, damping_factor, n):
     #raise NotImplementedError
 
     page = random.choice(list(corpus))
-    
     model = transition_model(corpus, page, damping_factor)
     print(model)
 
-    return {"1.html": .25, "2.html": .25, "3.html": .25, "4.html": .25}
+    return {"1.html": .25, "2.html": .25, "3.html": .50}
 
 def iterate_pagerank(corpus, damping_factor):
     """
