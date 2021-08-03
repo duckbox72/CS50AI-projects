@@ -2,6 +2,7 @@ import os
 import random
 import re
 import sys
+import copy
 
 DAMPING = 0.85
 SAMPLES = 10000
@@ -131,10 +132,37 @@ def iterate_pagerank(corpus, damping_factor):
     for page in corpus:
         pagerank[page] = 1 / len(corpus)
         
-        
-        
-    #pagerank[page] = ((1 - damping_factor) / len(corpus)) + (damping_factor * PR(i) / )
+    has_converged = False
+    while has_converged != True:
+        current_pagerank = copy.deepcopy(pagerank)
+        rank_difference = {}
 
+        for page in corpus.keys():
+            rank = 0
+            # Find summation of PR(i) / NumLinks(i) for each page
+            for page_i, links in corpus.items():
+                if page in links:
+                    rank += current_pagerank[page_i] / len(links)
+                
+                if len(links) == 0:
+                    rank += 1 / len(corpus)
+
+            # 
+            pagerank[page] = ((1 - damping_factor) / len(corpus)) + (damping_factor * rank)
+            
+            rank_difference[page] = abs(current_pagerank[page] - pagerank[page])
+            
+        for page in rank_difference:
+            if rank_difference[page] <= 0.001:
+                has_converged = True
+
+    # Normalize ranks to guarantee that they sum up to 1 in case they already aren't (i.e: corpus2)     
+    total_rank = 0    
+    for rank in pagerank.values():
+        total_rank += rank
+
+    for page in pagerank:
+        pagerank[page] = pagerank[page] / total_rank
 
     return pagerank
 
