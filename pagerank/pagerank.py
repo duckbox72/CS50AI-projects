@@ -156,7 +156,8 @@ def iterate_pagerank(corpus, damping_factor):
             if rank_difference[page] <= 0.001:
                 has_converged = True
 
-    # Normalize ranks to guarantee that they sum up to 1 in case they already aren't (i.e: corpus2)     
+    # Normalize ranks (divide each rank by total rank) to guarantee that 
+    # they sum up to 1 in case they already are not (i.e: corpus2).     
     total_rank = 0    
     for rank in pagerank.values():
         total_rank += rank
