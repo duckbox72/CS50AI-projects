@@ -59,7 +59,7 @@ def main():
         }
         for person in people
     }
-
+    print(f"Probabilities: {probabilities}")
     # Loop over all sets of people who might have the trait
     names = set(people)
     for have_trait in powerset(names):
@@ -139,6 +139,18 @@ def joint_probability(people, one_gene, two_genes, have_trait):
         * everyone in set `have_trait` has the trait, and
         * everyone not in set` have_trait` does not have the trait.
     """
+    print(people)
+    print(one_gene)
+    print(two_genes)
+    print(have_trait)
+
+    j_probability = 1
+    
+    #for person in people:
+        # Person that does not have the gene
+    #    if person not in one_gene and personnot in two_genes:
+
+
     raise NotImplementedError
 
 
