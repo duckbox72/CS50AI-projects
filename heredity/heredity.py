@@ -146,12 +146,64 @@ def joint_probability(people, one_gene, two_genes, have_trait):
 
     j_probability = 1
     
-    #for person in people:
-        # Person that does not have the gene
-    #    if person not in one_gene and personnot in two_genes:
+    for person in people:
+        # Check whether person has parents or not
+        mother = people[person]["mother"]
+        father = people[person]["father"]
+        
+        if mother and father:
+            if mother in one_gene:
+                not_PM = PROBS["mutation"] * 0.5
+                PM = 1 - not_PM * 0.5
+            elif mother in two_genes:
+                not_PM = PROBS["mutation"]
+                PM = 1 - not_PM
+            else:
+                PM = PROBS["mutation"]
+                not_PM = 1 - PM
 
+            if father in one_gene:
+                not_PF = PROBS['mutation'] * 0.5
+                PF = 1 - not_PF * 0.5
+            elif father in two_genes:
+                not_PF = PROBS["mutation"]
+                PF= 1 - not_PF
+            else:
+                PF = PROBS["mutation"]
+                not_PF = 1 - PM
+            
+            print(mother, father, PM , not_PF , PF , not_PM )
+            # Joint probability of (mother AND not father) OR (father AND not mother)
+            j_probability *= ((PM * not_PF) + (PF * not_PM))
+        
+        # When person has no parents use distribution PROBS["gene"]
+        else:
+            if person in one_gene:
+                j_probability *= PROBS["gene"][1]
+            elif person in two_genes:
+                j_probability *= PROBS["gene"][2]
+            else:
+                j_probability *= PROBS["gene"][0]
 
-    raise NotImplementedError
+        # Check whether person has trait or not and use distribution PROBS["trait"] 
+        if person in have_trait:
+            if person in one_gene:
+                j_probability *= PROBS["trait"][1][True]
+            elif person in two_genes:
+                j_probability *= PROBS["trait"][2][True]
+            else:
+                j_probability *= PROBS["trait"][0][True]   
+        else:
+            if person in one_gene:
+                j_probability *= PROBS["trait"][1][False]
+            elif person in two_genes:
+                j_probability *= PROBS["trait"][2][False]
+            else:
+                j_probability *= PROBS["trait"][0][False] 
+        
+    print(j_probability)
+    print("=================================")
+    return j_probability
 
 
 def update(probabilities, one_gene, two_genes, have_trait, p):
