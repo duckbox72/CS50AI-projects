@@ -153,6 +153,54 @@ def joint_probability(people, one_gene, two_genes, have_trait):
         mother = people[person]["mother"]
         father = people[person]["father"]
         
+        # Probability of NOT inheriting gene from BOTH parents
+        if person not in one_gene and person not in two_genes:    
+            # When person has no parents use distribution PROBS["gene"]
+            if not mother and not father:
+                j_probability *= PROBS["gene"][0]       
+            
+            # When person has parents each will pass one of their two genes on randomly
+            else:
+                # Mother has 0 genes
+                if mother not in one_gene and mother not in two_genes:
+                    # Father has 1 gene
+                    if father in one_gene:
+                        j_probability *= (1 - PROBS["mutation"]) * 0.50
+                    # Father has 2 genes
+                    elif father in two_genes:
+                        j_probability *= (1 - PROBS["mutation"]) * PROBS["mutation"]
+                    # Father has 0 genes
+                    else:
+                        j_probability *= (1 - PROBS["mutation"]) * (1 - PROBS["mutation"])
+
+                # Mother has 1 genes
+                if mother in one_gene:
+                    # Father has 1 gene
+                    if father in one_gene:
+                        j_probability *= 0.50 * 0.50
+                    # Father has 2 genes
+                    elif father in two_genes:
+                        j_probability *= 0.50 * PROBS["mutation"]
+                    # Father has 0 genes
+                    else:
+                        j_probability *= 0.50 * (1 - PROBS["mutation"])
+
+                # Mother has 2 genes
+                if mother in two_genes:
+                    # Father has 1 gene
+                    if father in one_gene:
+                        j_probability *= PROBS["mutation"] * 0.50
+                    # Father has 2 genes
+                    elif father in two_genes:
+                        j_probability *= PROBS["mutation"] * PROBS["mutation"]
+                    # Father has 0 genes
+                    else:
+                        j_probability *= PROBS["mutation"] * (1 -PROBS["mutation"])
+
+            # Check whether person is in have_trait and use probability distribution PROBS["trait"] (True/False)
+            j_probability *= PROBS["trait"][0][person in have_trait]
+
+        # Probability of inheriting gene from one parent OR other parent but not both
         if person in one_gene:    
             # When person has no parents use distribution PROBS["gene"]
             if not mother and not father:
@@ -198,6 +246,53 @@ def joint_probability(people, one_gene, two_genes, have_trait):
 
             # Check whether person is in have_trait and use probability distribution PROBS["trait"] (True/False)
             j_probability *= PROBS["trait"][1][person in have_trait]
+
+        # Probability of inheting gene from BOTH parents 
+        if person in two_genes:    
+            # When person has no parents use distribution PROBS["gene"]
+            if not mother and not father:
+                j_probability *= PROBS["gene"][2]       
+            
+            # When person has parents each will pass one of their two genes on randomly
+            else:
+                # Mother has 0 genes
+                if mother not in one_gene and mother not in two_genes:
+                    # Father has 1 gene
+                    if father in one_gene:
+                        j_probability *= PROBS["mutation"] * 0.50
+                    # Father has 2 genes
+                    elif father in two_genes:
+                        j_probability *= PROBS["mutation"] * (1 - PROBS["mutation"])
+                    # Father has 0 genes
+                    else:
+                        j_probability *= PROBS["mutation"] * PROBS["mutation"]
+
+                # Mother has 1 genes
+                if mother in one_gene:
+                    # Father has 1 gene
+                    if father in one_gene:
+                        j_probability *= 0.50 * 0.50
+                    # Father has 2 genes
+                    elif father in two_genes:
+                        j_probability *= 0.50 * (1 - PROBS["mutation"])
+                    # Father has 0 genes
+                    else:
+                        j_probability *= 0.50 * PROBS["mutation"]
+
+                # Mother has 2 genes
+                if mother in two_genes:
+                    # Father has 1 gene
+                    if father in one_gene:
+                        j_probability *= (1 - PROBS["mutation"]) * 0.50
+                    # Father has 2 genes
+                    elif father in two_genes:
+                        j_probability *= (1 - PROBS["mutation"]) * (1 - PROBS["mutation"])
+                    # Father has 0 genes
+                    else:
+                        j_probability *= (1 - PROBS["mutation"]) * PROBS["mutation"]
+
+            # Check whether person is in have_trait and use probability distribution PROBS["trait"] (True/False)
+            j_probability *= PROBS["trait"][2][person in have_trait]
 
 
 
