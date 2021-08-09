@@ -59,7 +59,7 @@ def main():
         }
         for person in people
     }
-    print(f"Probabilities: {probabilities}")
+    
     # Loop over all sets of people who might have the trait
     names = set(people)
     for have_trait in powerset(names):
@@ -293,13 +293,6 @@ def joint_probability(people, one_gene, two_genes, have_trait):
 
             # Check whether person is in have_trait and use probability distribution PROBS["trait"] (True/False)
             j_probability *= PROBS["trait"][2][person in have_trait]
-
-
-
-
-
-
-
         
     print(j_probability)
     print("=================================")
@@ -313,7 +306,15 @@ def update(probabilities, one_gene, two_genes, have_trait, p):
     Which value for each distribution is updated depends on whether
     the person is in `have_gene` and `have_trait`, respectively.
     """
-    raise NotImplementedError
+    for person in probabilities:
+        if person in one_gene:
+            probabilities[person]["gene"][1] += p
+        elif person in two_genes:
+            probabilities[person]["gene"][2] += p
+        else:
+            probabilities[person]["gene"][0] += p
+        
+        probabilities[person]["trait"][person in have_trait] += p
 
 
 def normalize(probabilities):
