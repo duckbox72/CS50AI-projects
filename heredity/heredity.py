@@ -139,14 +139,6 @@ def joint_probability(people, one_gene, two_genes, have_trait):
         * everyone in set `have_trait` has the trait, and
         * everyone not in set` have_trait` does not have the trait.
     """
-    #one_gene = {"Harry"}
-    #two_genes = {"James"}
-    #have_trait = {"James"}
-    print(people)
-    print(one_gene)
-    print(two_genes)
-    print(have_trait)
-
     j_probability = 1
 
     for person in people:
@@ -294,8 +286,6 @@ def joint_probability(people, one_gene, two_genes, have_trait):
             # Check whether person is in have_trait and use probability distribution PROBS["trait"] (True/False)
             j_probability *= PROBS["trait"][2][person in have_trait]
         
-    print(j_probability)
-    print("=================================")
     return j_probability
 
 
@@ -322,7 +312,15 @@ def normalize(probabilities):
     Update `probabilities` such that each probability distribution
     is normalized (i.e., sums to 1, with relative proportions the same).
     """
-    raise NotImplementedError
+    for person in probabilities:
+        total_genes = sum(probabilities[person]["gene"].values())
+
+        for index in range(3):
+            probabilities[person]["gene"][index] /= total_genes
+
+        total_trait = sum(probabilities[person]["trait"].values())
+        probabilities[person]["trait"][True] /= total_trait
+        probabilities[person]["trait"][False] /= total_trait
 
 
 if __name__ == "__main__":
