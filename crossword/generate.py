@@ -102,10 +102,12 @@ class CrosswordCreator():
         for variable, domain in self.domains.items():
             inconsistent = set()
             for element in domain:
+                # Mark elements that dont fulfill unary constraints as inconsistent
                 if len(element) != variable.length:
                     inconsistent.add(element)
             
-            self.domains[variable] = (domain.difference(inconsistent))
+            # Update variable domain set removing inconsistent 
+            self.domains[variable] = (domain.difference(inconsistent))  
             
     def revise(self, x, y):
         """
@@ -127,8 +129,25 @@ class CrosswordCreator():
         Return True if arc consistency is enforced and no domains are empty;
         return False if one or more domains end up empty.
         """
-        raise NotImplementedError
-
+        print(self.crossword.overlaps)
+        queue = list()
+        
+        if arcs is None:
+            # Add to queue all valid arcs in the problem
+            for x in self.domains:
+                for y in self.domains:
+                    # Filter all valid arcs before adding to queue
+                    if x != y and self.crossword.overlaps[(x, y)] is not None:
+                        # Append arc to the left of the list
+                        queue = [(x, y)] + queue
+        else:
+            # Add to queue list of arcs
+            for arc in arcs:
+                # Append arc to the left of the list
+                queue = [arc] + queue
+    
+        print(queue)
+        
     def assignment_complete(self, assignment):
         """
         Return True if `assignment` is complete (i.e., assigns a value to each
