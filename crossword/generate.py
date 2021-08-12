@@ -99,8 +99,14 @@ class CrosswordCreator():
         (Remove any values that are inconsistent with a variable's unary
          constraints; in this case, the length of the word.)
         """
-        raise NotImplementedError
-
+        for variable, domain in self.domains.items():
+            inconsistent = set()
+            for element in domain:
+                if len(element) != variable.length:
+                    inconsistent.add(element)
+            
+            self.domains[variable] = (domain.difference(inconsistent))
+            
     def revise(self, x, y):
         """
         Make variable `x` arc consistent with variable `y`.
