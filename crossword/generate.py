@@ -118,7 +118,20 @@ class CrosswordCreator():
         Return True if a revision was made to the domain of `x`; return
         False if no revision was made.
         """
-        raise NotImplementedError
+        revised = False
+        index_x, index_y = self.crossword.overlaps[(x, y)]
+        consistent = set()
+        
+        for element_x in self.domains[x]:
+            for element_y in self.domains[y]:
+                if element_x[index_x] == element_y[index_y]:
+                    consistent.add(element_x)
+
+        # Check if there are inconsistences. If any remove it and set revised True
+        if self.domains[x] != consistent:
+            self.domains[x] = self.domains[x].intersection(consistent)
+            revised = True
+        return revised
 
     def ac3(self, arcs=None):
         """
@@ -156,14 +169,8 @@ class CrosswordCreator():
                 for z in self.crossword.neighbors(x):
                     if z != y and self.crossword.overlaps[(x, z)] is not None:
                         queue = [(x, z)] + queue
-
         return True
-            
-
-
-
-
-        
+              
     def assignment_complete(self, assignment):
         """
         Return True if `assignment` is complete (i.e., assigns a value to each
@@ -206,6 +213,7 @@ class CrosswordCreator():
 
         If no assignment is possible, return None.
         """
+        print(self.domains)
         raise NotImplementedError
 
 
