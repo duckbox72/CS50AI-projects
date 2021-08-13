@@ -186,7 +186,6 @@ class CrosswordCreator():
         Return True if `assignment` is consistent (i.e., words fit in crossword
         puzzle without conflicting characters); return False otherwise.
         """
-
         for variable, value in assignment.items():
             # Check if value has correct lenght
             if variable.length != len(value):
@@ -195,12 +194,11 @@ class CrosswordCreator():
             for distinct_variable, distinct_value in assignment.items():
                 if variable != distinct_variable:
                     if value == distinct_value:
-                        return False
-                    
+                        return False              
                     # Check for conflicts between neighboring variables (overlaps)
                     overlap = self.crossword.overlaps[variable, distinct_variable]                   
                     if overlap:
-                        if value[overlap[0]] != value[overlap[1]]:
+                        if value[overlap[0]] != distinct_value[overlap[1]]:
                             return False
         return True
 
@@ -211,6 +209,7 @@ class CrosswordCreator():
         The first value in the list, for example, should be the one
         that rules out the fewest values among the neighbors of `var`.
         """
+
         raise NotImplementedError
 
     def select_unassigned_variable(self, assignment):
@@ -251,23 +250,21 @@ class CrosswordCreator():
 
         If no assignment is possible, return None.
         """
-        assignment = {}
-      
         # Check if assignment is complete
         if self.assignment_complete(assignment):
             return assignment
         
-        # Select unassigned variable to assign
+        # Select unassigned variable to test-assign
         variable = self.select_unassigned_variable(assignment)
-
+        #for value in self.order_domain_values(variable, assignment):
         for value in self.domains[variable]:
             assignment[variable] = value
             if self.consistent(assignment):
-                print("CONSISTENT")
-
-            else:
-                print("NOT CONSISTENT")
-        raise NotImplementedError
+                result = self.backtrack(assignment)
+                if result:
+                    return result #True in this case                          
+                assignment.pop(variable)
+        return None
 
 
 def main():
