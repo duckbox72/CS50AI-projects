@@ -215,18 +215,16 @@ class CrosswordCreator():
             # Heuristic (Degree) to keep track of most neighbors
             degree = len(self.crossword.neighbors(variable))
 
-            print(domain_size, degree)
             if variable not in assignment:
                 preference_order.append({"variable": variable, "domain_size": domain_size, "degree": degree})
                 
-        print(preference_order)
-        print()
-        preference_order.sort(key=lambda x: x.domain_size)
-        print(preference_order)
-        print()
-        #preference_order.sort(reverse=True, key=highest_degree)
-        #print(preference_order)
-        raise NotImplementedError
+        # Sort preference by "domain_size" followed by inverted "degree"
+        preference_order.sort(key=lambda x: (x["domain_size"], -x["degree"]))
+        
+        # Select first variable from list (preferred taking heuristic into account)
+        selected_variable = preference_order[0]["variable"]
+        
+        return selected_variable
 
     def backtrack(self, assignment):
         """
