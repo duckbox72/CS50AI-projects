@@ -106,7 +106,7 @@ class CrosswordCreator():
                 if len(element) != variable.length:
                     inconsistent.add(element)
             
-            # Update variable domain set removing inconsistent 
+            # Update variable domain set removing inconsistentcies
             self.domains[variable] = (domain.difference(inconsistent))  
             
     def revise(self, x, y):
@@ -176,6 +176,7 @@ class CrosswordCreator():
         Return True if `assignment` is complete (i.e., assigns a value to each
         crossword variable); return False otherwise.
         """
+        # Check if all variables have assignments
         for variable in self.crossword.variables:
             if variable not in assignment or assignment[variable] is None:
                 return False
@@ -209,6 +210,8 @@ class CrosswordCreator():
         The first value in the list, for example, should be the one
         that rules out the fewest values among the neighbors of `var`.
         """
+
+        
 
         raise NotImplementedError
 
@@ -261,8 +264,10 @@ class CrosswordCreator():
             assignment[variable] = value
             if self.consistent(assignment):
                 result = self.backtrack(assignment)
+                # result is not failure, return result
                 if result:
-                    return result #True in this case                          
+                    return result
+                # result is a failure, remove variable/value from assignment                           
                 assignment.pop(variable)
         return None
 
