@@ -186,7 +186,24 @@ class CrosswordCreator():
         Return True if `assignment` is consistent (i.e., words fit in crossword
         puzzle without conflicting characters); return False otherwise.
         """
-        raise NotImplementedError
+
+        for variable, value in assignment.items():
+            # Check if value has correct lenght
+            if variable.length != len(value):
+                return False
+            # Check if all values are distinct
+            for distinct_variable, distinct_value in assignment.items():
+                if variable != distinct_variable:
+                    if value == distinct_value:
+                        return False
+                    
+                    # Check for conflicts between neighboring variables (overlaps)
+                    overlap = self.crossword.overlaps[variable, distinct_variable]
+                    
+                    if overlap:
+                        if value[overlap[0]] != value[overlap[1]]:
+                            return False
+        return True
 
     def order_domain_values(self, var, assignment):
         """
@@ -235,16 +252,22 @@ class CrosswordCreator():
 
         If no assignment is possible, return None.
         """
-
         assignment = {}
       
-
+        # Check if assignment is complete
         if self.assignment_complete(assignment):
             return assignment
         
+        # Select unassigned variable to assign
         variable = self.select_unassigned_variable(assignment)
 
+        for value in self.domains[variable]:
+            assignment[variable] = value
+            if self.consistent(assignment):
+                print("CONSISTENT")
 
+            else:
+                print("NOT CONSISTENT")
         raise NotImplementedError
 
 
