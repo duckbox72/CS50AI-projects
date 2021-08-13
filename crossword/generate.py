@@ -176,7 +176,7 @@ class CrosswordCreator():
         Return True if `assignment` is complete (i.e., assigns a value to each
         crossword variable); return False otherwise.
         """
-        for variable in self.domains:
+        for variable in self.crossword.variables:
             if variable not in assignment or assignment[variable] is None:
                 return False
         return True
@@ -204,7 +204,28 @@ class CrosswordCreator():
         in its domain. If there is a tie, choose the variable with the highest
         degree. If there is a tie, any of the tied variables are acceptable
         return values.
-        """
+        """ 
+        # List  variables
+        preference_order = list()
+        
+        for variable in self.domains:
+            # Heuristic (MRV) to keep track of smallest domain
+            domain_size = len(self.domains[variable])
+            
+            # Heuristic (Degree) to keep track of most neighbors
+            degree = len(self.crossword.neighbors(variable))
+
+            print(domain_size, degree)
+            if variable not in assignment:
+                preference_order.append({"variable": variable, "domain_size": domain_size, "degree": degree})
+                
+        print(preference_order)
+        print()
+        preference_order.sort(key=lambda x: x.domain_size)
+        print(preference_order)
+        print()
+        #preference_order.sort(reverse=True, key=highest_degree)
+        #print(preference_order)
         raise NotImplementedError
 
     def backtrack(self, assignment):
@@ -218,7 +239,7 @@ class CrosswordCreator():
         """
 
         assignment = {}
-        print(self.domains)
+      
 
         if self.assignment_complete(assignment):
             return assignment
