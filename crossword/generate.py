@@ -198,8 +198,7 @@ class CrosswordCreator():
                         return False
                     
                     # Check for conflicts between neighboring variables (overlaps)
-                    overlap = self.crossword.overlaps[variable, distinct_variable]
-                    
+                    overlap = self.crossword.overlaps[variable, distinct_variable]                   
                     if overlap:
                         if value[overlap[0]] != value[overlap[1]]:
                             return False
