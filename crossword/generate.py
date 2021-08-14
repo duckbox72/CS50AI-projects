@@ -210,6 +210,21 @@ class CrosswordCreator():
         The first value in the list, for example, should be the one
         that rules out the fewest values among the neighbors of `var`.
         """
+        # Find and store neighbors of var
+        neighbors = self.crossword.neighbors(var)
+        var_ordered_domain = list()
+
+        for neighbor in neighbors:
+            # Keep track of how many values are ruled out
+            ruled_out_count = 0
+
+            # If neighbor already in assignment, disregard it
+            if neighbor in assignment:
+                neighbors.remove(neighbor)
+            else:
+                # Get overslap between var and neighbor
+                overlap = self.crossword.overlaps[]
+
 
         
 
