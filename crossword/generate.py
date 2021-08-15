@@ -227,13 +227,12 @@ class CrosswordCreator():
                         if var_value[index_var] != neighbor_value[index_neighbor]:
                             ruled_out_count += 1
 
-            domain_value_x_ruled_out.append([var_value, ruled_out_count])
+            domain_value_x_ruled_out.append((var_value, ruled_out_count))
             ruled_out_count = 0
         
         domain_value_x_ruled_out.sort(key=lambda x: x[1])
         ordered_domain_values = [x[0] for x in domain_value_x_ruled_out]
 
-        print(domain_value_x_ruled_out)
         return ordered_domain_values
 
     def select_unassigned_variable(self, assignment):
@@ -262,7 +261,7 @@ class CrosswordCreator():
         
         # Select first variable from list (preferred taking heuristic into account)
         selected_variable = preference_order[0]["variable"]
-        
+    
         return selected_variable
 
     def backtrack(self, assignment):
