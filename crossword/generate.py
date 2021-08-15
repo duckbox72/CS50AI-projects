@@ -212,23 +212,29 @@ class CrosswordCreator():
         """
         # Find and store neighbors of var
         neighbors = self.crossword.neighbors(var)
-        var_ordered_domain = list()
+        domain_value_x_ruled_out = list()
 
-        for neighbor in neighbors:
-            # Keep track of how many values are ruled out
+        for var_value in self.domains[var]:
+            # Keep track of how many values are ruled out from neighbor for each 
+            ruled_out_count = 0      
+            for neighbor in neighbors:
+                # If neighbor already in assignment, disregard it
+                if neighbor not in assignment:
+                    # Get overslap indexes between var and neighbor
+                    index_var, index_neighbor = self.crossword.overlaps[var,neighbor]    
+                    
+                    for neighbor_value in self.domains[neighbor]:
+                        if var_value[index_var] != neighbor_value[index_neighbor]:
+                            ruled_out_count += 1
+
+            domain_value_x_ruled_out.append([var_value, ruled_out_count])
             ruled_out_count = 0
-
-            # If neighbor already in assignment, disregard it
-            if neighbor in assignment:
-                neighbors.remove(neighbor)
-            else:
-                # Get overslap between var and neighbor
-                overlap = self.crossword.overlaps[]
-
-
         
+        domain_value_x_ruled_out.sort(key=lambda x: x[1])
+        ordered_domain_values = [x[0] for x in domain_value_x_ruled_out]
 
-        raise NotImplementedError
+        print(domain_value_x_ruled_out)
+        return ordered_domain_values
 
     def select_unassigned_variable(self, assignment):
         """
@@ -274,8 +280,8 @@ class CrosswordCreator():
         
         # Select unassigned variable to test-assign
         variable = self.select_unassigned_variable(assignment)
-        #for value in self.order_domain_values(variable, assignment):
-        for value in self.domains[variable]:
+        for value in self.order_domain_values(variable, assignment):
+        #for value in self.domains[variable]:
             assignment[variable] = value
             if self.consistent(assignment):
                 result = self.backtrack(assignment)
