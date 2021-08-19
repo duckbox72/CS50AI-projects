@@ -59,7 +59,6 @@ def load_data(filename):
     labels should be the corresponding list of labels, where each label
     is 1 if Revenue is true, and 0 otherwise.
     """
-    print("TODO HERE")
     raise NotImplementedError
 
 
