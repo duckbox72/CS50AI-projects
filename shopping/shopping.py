@@ -10,7 +10,6 @@ TEST_SIZE = 0.4
 
 def main():
 
-    
     # Check command-line arguments
     if len(sys.argv) != 2:
         sys.exit("Usage: python shopping.py data")
@@ -99,8 +98,8 @@ def load_data(filename):
             row_data.append(df[column][i])
 
         evidence.append(row_data[0:-1])
-        labels.append(row_data[-1])
-   
+        labels.append(row_data[-1]) 
+    
     return (evidence, labels)
 
 
@@ -109,7 +108,10 @@ def train_model(evidence, labels):
     Given a list of evidence lists and a list of labels, return a
     fitted k-nearest neighbor model (k=1) trained on the data.
     """
-    raise NotImplementedError
+    model = KNeighborsClassifier(n_neighbors=1)
+    model.fit(evidence, labels)
+    
+    return model
 
 
 def evaluate(labels, predictions):
