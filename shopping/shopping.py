@@ -117,7 +117,7 @@ def train_model(evidence, labels):
 def evaluate(labels, predictions):
     """
     Given a list of actual labels and a list of predicted labels,
-    return a tuple (sensitivity, specificty).
+    return a tuple (sensitivity, specificity).
 
     Assume each label is either a 1 (positive) or 0 (negative).
 
@@ -129,7 +129,30 @@ def evaluate(labels, predictions):
     representing the "true negative rate": the proportion of
     actual negative labels that were accurately identified.
     """
-    raise NotImplementedError
+    positive_labels = 0
+    negative_labels = 0
+
+    accurate_positives = 0
+    accurate_negatives = 0
+
+    for i in range(len(labels)):
+        # true positive rate 
+        if labels[i] == 1:
+            positive_labels += 1
+            if predictions[i] == 1:
+                accurate_positives += 1
+
+        if labels[i] == 0:
+            negative_labels += 1
+            if predictions[i] == 0:
+                accurate_negatives += 1
+
+
+
+    sensitivity = accurate_positives / positive_labels
+    specificity = accurate_negatives / negative_labels
+
+    return (sensitivity, specificity)
 
 
 if __name__ == "__main__":
