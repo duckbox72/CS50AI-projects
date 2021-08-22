@@ -84,7 +84,6 @@ def load_data(filename):
 
     # Convert updated columns to int (bool type columns 0 or 1 assignment is automatic)
     df = df.astype({'Month': int, 'VisitorType': int, 'Weekend': int, 'Revenue': int})
-    #df.info()
     
     # Populate evidence and labels lists 
     evidence = list() 
@@ -92,7 +91,7 @@ def load_data(filename):
     columns = df.columns
     
     for i in range(len(df)):
-        row_data = list()        
+        row_data = list()              
         
         for column in columns:
             row_data.append(df[column][i])
@@ -129,25 +128,24 @@ def evaluate(labels, predictions):
     representing the "true negative rate": the proportion of
     actual negative labels that were accurately identified.
     """
+    # Set tracker variables
     positive_labels = 0
     negative_labels = 0
-
     accurate_positives = 0
     accurate_negatives = 0
 
     for i in range(len(labels)):
-        # true positive rate 
+        # Count total positive labels and accurate positives (predictions)
         if labels[i] == 1:
             positive_labels += 1
             if predictions[i] == 1:
                 accurate_positives += 1
-
+        
+        # Count total negative labels and accurate negatives (predictions)
         if labels[i] == 0:
             negative_labels += 1
             if predictions[i] == 0:
                 accurate_negatives += 1
-
-
 
     sensitivity = accurate_positives / positive_labels
     specificity = accurate_negatives / negative_labels
