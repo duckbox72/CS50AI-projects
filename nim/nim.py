@@ -161,7 +161,6 @@ class NimAI():
         options is an acceptable return value.
         """
         # Retrieve the possible actions set for given state
-        print(state)
         actions = Nim.available_actions(state)
         best_action = tuple()
 
