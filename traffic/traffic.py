@@ -102,9 +102,11 @@ def get_model():
         tf.keras.layers.Dense(128, activation='relu'),
         tf.keras.layers.Dropout(0.5),
         
+        
         # Add an output layer with output units for each category
         # softmax activation function transforms output into a probability distribution 
         tf.keras.layers.Dense(NUM_CATEGORIES, activation="softmax")
+        
     ])
 
     model.compile(optimizer='adam',
