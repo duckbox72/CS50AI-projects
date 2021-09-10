@@ -9,6 +9,24 @@ When building a neural network model, the objective is to **minimize the loss fu
 ## Experimentation Process 
 
 ### STEP 1
-setup a plain *'vanilla'* model with no convolution steps, a single hidden layer with documentation sugested *'default'* values of 128 units in it and ReLu activation, and a dropout layer of 0.2 proportion.  
+Started with a plain *'vanilla'* model with no convolution steps, a single hidden layer with 128 units and ReLu activation, and a dropout layer of 0.2 proportion as suggested by documentation. Results showed to be clearly inadequate.
+
+After a different number of tries with different settings results didn't improve and still presented **high loss** and **low accuracy** in both training and testing, even with quadrupled units (512) or multi hidden layers were set.
+
+Best run (Epoch 10 training results and testing results): 
+
+* `Epoch 10/10
+500/500 [==============================] - 4s 9ms/step - loss: 3.5017 - accuracy: 0.0556
+333/333 - 1s - loss: 3.4935 - accuracy: 0.0574`
+
+
+### STEP 2
+At this point a convolutional layer with 32 kernel filters and a pooling layer of (2 x 2) were added to model. 
+
+
+
+
+
+
 
 
