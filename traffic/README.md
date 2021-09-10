@@ -15,7 +15,7 @@ After a different number of tries with different settings results didn't improve
 
 Best run (Epoch 10 training results and testing results): 
 
-* `Epoch 10/10
+`Epoch 10/10
 500/500 [==============================] - 4s 9ms/step - loss: 3.5017 - accuracy: 0.0556
 333/333 - 1s - loss: 3.4935 - accuracy: 0.0574`
 
