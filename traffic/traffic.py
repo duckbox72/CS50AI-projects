@@ -89,12 +89,12 @@ def get_model():
     model = tf.keras.models.Sequential([
         
         # Convolutional layer. Learn 32 filters using a 3x3 kernel
-        tf.keras.layers.Conv2D(
-            32, (6, 6), activation="relu", input_shape=(IMG_WIDTH, IMG_HEIGHT, 3)
-        ),
+        #tf.keras.layers.Conv2D(
+        #    32, (6, 6), activation="relu", input_shape=(IMG_WIDTH, IMG_HEIGHT, 3)
+        #),
         
         # Max-pooling layer, using 2x2 pool size
-        tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
+        #tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
         
         # Flatten Units
         tf.keras.layers.Flatten(input_shape=(IMG_WIDTH, IMG_HEIGHT, 3)),
@@ -105,7 +105,7 @@ def get_model():
 
         # Add a hidden layer with dropout (to prevent overfitting)
         tf.keras.layers.Dense(128, activation='relu'),
-        tf.keras.layers.Dropout(0.5),
+        tf.keras.layers.Dropout(0.2),
         
         # Add an output layer with output units for each category
         # softmax activation function transforms output into a probability distribution 
