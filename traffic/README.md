@@ -4,7 +4,7 @@ Traffic is an implementation of a **Convolutional Neural Network** built with Te
 The model classifies road signs based on images. For training and testing the model, the German Traffic Sign Recognition Benchmark (GTSRB) labeled dataset, which contains thousands of images of 43 different kinds of road signs, was used.
 
 ## Neural Network - model building process
-When building a neural network model, the objective is to **minimize the loss function** and **maximize testing accuracy** (using the least possible resources). In order to achieve that we can explore and experiment different network structures and configurations. For this implementation, the experimentation process is described below:
+When building a neural network model, the objective is to **minimize the loss function** and **maximize accuracy** (using the least possible resources). In order to achieve that, we can explore and experiment different network structures and configurations. For this implementation, the experimentation process is described below:
 
 ## Experimentation Process 
 
@@ -13,7 +13,7 @@ Started with a plain *'vanilla'* model with no convolution steps, a single hidde
 
 After a different number of tries with different settings results didn't improve and still presented **high loss** and **low accuracy** in both training and testing, even with quadrupled units (512) or multi hidden layers were set.
 
-Best run (Epoch 10 training results and testing results): 
+#### BEST RUN (Epoch 10 training and testing results): 
 
 `Epoch 10/10
 500/500 [==============================] - 4s 9ms/step - loss: 3.5017 - accuracy: 0.0556
