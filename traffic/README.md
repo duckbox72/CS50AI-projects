@@ -3,7 +3,7 @@ Traffic is an implementation of a **Convolutional Neural Network** (CNN) built w
 
 The model classifies road signs based on images. For training and testing the model, the German Traffic Sign Recognition Benchmark (GTSRB) labeled dataset, which contains thousands of images of 43 different kinds of road signs, was used.
 
-## Neural Network - model building process
+## Neural Network - Model Building Process
 The objective of a neural network is to provide a model capable of **minimize the loss function** and **maximize accuracy** ratio using the least possible resources. In order to achieve that, we can explore and experiment different structures with different layers and configurations. For this implementation, the experimentation process is described below:
 
 ## Experimentation Process 
@@ -32,7 +32,7 @@ Although improvements could be observed in both loss and accuracy markers, this 
 ### STEP 3
 Experimented a number of different settings, adding hidden layers, changing number of units and dropout layer proportions, as well as modifying convolutional layer and pooling layer settings . Noted that the most positive changes in both results and consistency occured after increasing the kernel filters to a (6 x 6) size, bringing loss to the 0.4000- range and the accuracy to the 0.9000+ range.
 
-Alternatively, in seek of a smaller sized flattened layer, kernel filters were kept at the original (3 x 3) size and instead another **convolutional layer** with 32 (3 x 3) filters, followed by another **pooling layer** were **added** to the model. This proved to be very efficient, consistently returning after several runs, loss around 0.2000 range and the accuracy on the 0.9300 range.
+Alternatively, in seek of a smaller sized flattened layer, kernel filters were kept at the original (3 x 3) size and instead another **convolutional layer** with 32 (3 x 3) filters, followed by another **pooling layer** were **added** to the model. This proved to be very efficient, consistently returning after several runs, loss close to 0.2000 and the accuracy on the 0.9000+ range.
 
 #### BEST RUN
 `Epoch 10/10
@@ -40,12 +40,12 @@ Alternatively, in seek of a smaller sized flattened layer, kernel filters were k
 333/333 - 2s - loss: 0.2036 - accuracy: 0.9560`
 
 ### STEP 4
-Although the changes implemented on the previous step visibly improved the model, seems that there was still a little room for improvement, specially regarding the loss and a bit of *overfitting*. In fact, after trying several different configurations , increasing the dropoff ratio to 0.40 proved to prevent possible overfitting and lower the loss ratio without compromising accuracy. Finally, doubling hidden layer units to 256 seemed to improve result consistency, mantaining testing loss close to 0.1500 and accuracy close to 0.9500.
+Although the changes implemented on the previous step visibly improved the model, seems that there was still a little room for improvement, specially regarding the loss and a bit of *overfitting*. In fact, after trying several different configurations , increasing the dropoff ratio to 0.40 proved to prevent possible overfitting and lower the loss ratio without compromising accuracy. Finally, doubling hidden layer units to 256 seemed to improve result consistency, keeping testing loss below 0.2000 and accuracy close to 0.9500.
 
-Further changes, or additions did not appear to improve the model further. B
+Further changes or additions, appeared to be resource consuming with no overall improvement to the model accuracy any.
 
 
-#### FINAL MODEL
+#### FINAL MODEL SUMMARY
 ```
 Model: "sequential"
 _________________________________________________________________

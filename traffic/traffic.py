@@ -106,13 +106,12 @@ def get_model():
         tf.keras.layers.Flatten(),
 
         # Add a hidden layer with dropout (to prevent overfitting)
-        tf.keras.layers.Dense(128, activation='relu'),
+        tf.keras.layers.Dense(256, activation='relu'),
         tf.keras.layers.Dropout(0.40),
         
-        # Add an output layer with output units for each category
+        # Add an output layer with output units for each category, 
         # softmax activation function transforms output into a probability distribution 
-        tf.keras.layers.Dense(NUM_CATEGORIES, activation="softmax")
-        
+        tf.keras.layers.Dense(NUM_CATEGORIES, activation="softmax")      
     ])
 
     model.compile(optimizer='adam',
