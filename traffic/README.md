@@ -32,7 +32,7 @@ Although improvements could be observed in both loss and accuracy markers, this 
 ### STEP 3
 Experimented a number of different settings, adding hidden layers, changing number of units and dropout layer proportions, as well as modifying convolutional layer and pooling layer settings . Noted that the most positive changes in both results and consistency occured after increasing the kernel filters to a (6 x 6) size, bringing loss to the 0.4000- range and the accuracy to the 0.9000+ range.
 
-Alternatively, in seek of a smaller sized flattened layer, kernel filters were kept at the original (3 x 3) size, and instead another **convolutional layer** with 32 (3 x 3) filters, followed by another **pooling layer** were **added** to the model. This proved increase efficiency, consistently returning loss close to 0.2000 and accuracy on the 0.9000+ range.
+Alternatively, in seek of a smaller sized flattened layer, kernel filters were kept at the original (3 x 3) size, and instead another **convolutional layer** with 32 (3 x 3) filters, followed by another **pooling layer** were **added** to the model. This proved to increase efficiency, reaching a consistent loss close to 0.2000 and accuracy on the 0.9000+ range.
 
 #### BEST RUN
 `Epoch 10/10
@@ -40,9 +40,9 @@ Alternatively, in seek of a smaller sized flattened layer, kernel filters were k
 333/333 - 2s - loss: 0.2036 - accuracy: 0.9560`
 
 ### STEP 4
-Although the changes implemented on the previous step visibly improved the model, seems that there was still a little room for improvement, specially regarding the loss and a bit of *overfitting*. In fact, after trying several different configurations , increasing the dropoff ratio to 0.40 proved to prevent possible overfitting and lower the loss ratio without compromising accuracy. Finally, doubling hidden layer units to 256 seemed to improve result consistency, keeping testing loss below 0.2000 and accuracy close to 0.9500.
+Although the changes implemented on the previous step clearly improved the model, seemed that there was still a little room for improvement, specially regarding the loss score and a possible little *overfitting*. In fact, after trying several different configurations , increasing the dropoff ratio to 0.40 proved to prevent possible overfitting and lower the loss ratio without compromising accuracy. Finally, doubling hidden layer units to 256 seemed to improve result consistency, keeping testing loss below 0.2000 and accuracy close to 0.9500.
 
-Further changes or additions, appeared to be resource consuming with no overall improvement to the model accuracy any.
+Further changes or additions, appeared to be resource consuming with no overall improvement to the model accuracy.
 
 
 #### FINAL MODEL SUMMARY
