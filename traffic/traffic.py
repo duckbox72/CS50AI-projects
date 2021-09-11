@@ -106,7 +106,7 @@ def get_model():
         tf.keras.layers.Flatten(),
 
         # Add a hidden layer with dropout (to prevent overfitting)
-        tf.keras.layers.Dense(256, activation='relu'),
+        tf.keras.layers.Dense(128, activation='relu'),
         tf.keras.layers.Dropout(0.40),
         
         # Add an output layer with output units for each category
