@@ -124,6 +124,7 @@ def get_model():
     loss='categorical_crossentropy',
     metrics=['accuracy'])
 
+    print(model.summary())
     return model
 
 if __name__ == "__main__":

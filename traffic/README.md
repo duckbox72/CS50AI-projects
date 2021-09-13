@@ -8,7 +8,7 @@ The objective of a neural network is to provide a model capable of **minimize th
 
 ## Experimentation Process 
 ### STEP 1
-Started with a plain *'vanilla'* model with no convolution steps, a single **hidden layer** with 128 units and ReLu activation, and a **dropout laye**r of 0.2 proportion as suggested by documentation. Results showed to be clearly inadequate.
+Started with a plain *'vanilla'* model with no convolutional steps, a single **hidden layer** with 128 units and ReLu activation, and a **dropout laye**r of 0.2 proportion as suggested by documentation. Results showed to be clearly inadequate.
 
 After a number of tries with different settings, results didn't appear to improve and still presented **high loss** and **low accuracy** in both training and testing sets, even when quadrupled units (512) or multi hidden layers were set.
 
@@ -53,7 +53,7 @@ Epoch 10/10
 
 ### STEP 5
 
-Finally the attention went back to the **Convolutional Base**. After several experiments, and having in mind that a higher number of kernels could be afforded computationally in some layers where the width and height shrunk from previous pooling layer(s), some modifications were implemented:
+Finally, the attention went back to the **Convolutional Base**. After several experiments, and having in mind that a higher number of kernels could be afforded computationally in some layers where the width and height shrunk from previous pooling layer(s), some modifications were implemented:
 
 - number of kernel filters on the first convolutional layer changed from 32 to 30 (3 x 3)
 
@@ -99,24 +99,24 @@ _________________________________________________________________
 #### BEST RUN
 ```
 Epoch 1/10
-500/500 [==============================] - 10s 20ms/step - loss: 2.9612 - accuracy: 0.3765 
+500/500 [==============================] - 13s 25ms/step - loss: 2.5062 - accuracy: 0.4184
 Epoch 2/10
-500/500 [==============================] - 10s 20ms/step - loss: 0.8656 - accuracy: 0.7508
+500/500 [==============================] - 13s 25ms/step - loss: 0.7971 - accuracy: 0.7651
 Epoch 3/10
-500/500 [==============================] - 10s 20ms/step - loss: 0.4692 - accuracy: 0.8631
+500/500 [==============================] - 13s 25ms/step - loss: 0.4485 - accuracy: 0.8735
 Epoch 4/10
-500/500 [==============================] - 10s 21ms/step - loss: 0.3139 - accuracy: 0.9068
+500/500 [==============================] - 14s 27ms/step - loss: 0.3179 - accuracy: 0.9092
 Epoch 5/10
-500/500 [==============================] - 11s 22ms/step - loss: 0.2451 - accuracy: 0.9306
+500/500 [==============================] - 14s 28ms/step - loss: 0.2551 - accuracy: 0.9273
 Epoch 6/10
-500/500 [==============================] - 11s 22ms/step - loss: 0.2203 - accuracy: 0.9358
+500/500 [==============================] - 15s 29ms/step - loss: 0.2223 - accuracy: 0.9355
 Epoch 7/10
-500/500 [==============================] - 11s 22ms/step - loss: 0.2009 - accuracy: 0.9434
+500/500 [==============================] - 15s 30ms/step - loss: 0.2361 - accuracy: 0.9350
 Epoch 8/10
-500/500 [==============================] - 11s 22ms/step - loss: 0.1724 - accuracy: 0.9500
+500/500 [==============================] - 15s 29ms/step - loss: 0.1618 - accuracy: 0.9536
 Epoch 9/10
-500/500 [==============================] - 11s 23ms/step - loss: 0.1701 - accuracy: 0.9537
+500/500 [==============================] - 15s 30ms/step - loss: 0.1479 - accuracy: 0.9575
 Epoch 10/10
-500/500 [==============================] - 11s 23ms/step - loss: 0.1586 - accuracy: 0.9561
-333/333 - 2s - loss: 0.0788 - accuracy: 0.9810
+500/500 [==============================] - 15s 30ms/step - loss: 0.1366 - accuracy: 0.9614
+333/333 - 3s - loss: 0.0965 - accuracy: 0.9802
 ```
