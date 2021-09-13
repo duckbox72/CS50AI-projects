@@ -30,9 +30,9 @@ Although improvements could be observed in both loss and accuracy markers, this 
 333/333 - 2s - loss: 0.7735 - accuracy: 0.7790`
 
 ### STEP 3
-Experimented a number of different settings, adding hidden layers, changing number of units and dropout layer proportions, as well as modifying convolutional layer and pooling layer settings . Noted that the most positive changes in both results and consistency occured after increasing the kernel filters to a (6 x 6) size, bringing loss to the 0.4000- range and the accuracy to the 0.9000+ range.
+Experimented a number of different settings, adding hidden dense layers, changing number of units and dropout layer proportions, as well as several convolutional layer and pooling layer settings . Noted that the most positive changes in both results and consistency occured after increasing the kernel filters to a (6 x 6) size, bringing loss to the 0.4000- range and the accuracy to the 0.9000+ range.
 
-Alternatively, in seek of a smaller sized flattened layer, kernel filters were kept at the original (3 x 3) size, and instead another **convolutional layer** with 32 (3 x 3) filters, followed by another **pooling layer** were **added** to the model. This proved to increase efficiency, reaching a consistent loss close to 0.2000 and accuracy on the 0.9000+ range.
+But instead, in the seek of a smaller sized flattened layer, the kernel filters were kept at the original (3 x 3) size, added a second **convolutional layer** with 32 (3 x 3) filters, followed by a second **pooling layer**. This proved to increase efficiency, reaching a consistent loss close to 0.2000 and accuracy on the 0.9000+ range.
 
 #### BEST RUN
 `Epoch 10/10
@@ -40,61 +40,22 @@ Alternatively, in seek of a smaller sized flattened layer, kernel filters were k
 333/333 - 2s - loss: 0.2036 - accuracy: 0.9560`
 
 ### STEP 4
-Although the changes implemented on the previous step clearly improved the model, seemed that there was still a little room for improvement, specially regarding the loss score and a possible little *overfitting*. In fact, after trying several different configurations , increasing the dropoff ratio to 0.40 proved to prevent possible overfitting and lower the loss ratio without compromising accuracy. Finally, doubling hidden layer units to 256 seemed to improve result consistency, keeping testing loss below 0.2000 and accuracy close to 0.9500.
+Although the updates made on the previous step clearly generated better results, seemed that there was still some room for improvement, specially regarding the loss score and a possible little *overfitting*. In fact, after trying several different configurations , increasing the dropoff ratio to 0.40 proved to prevent possible overfitting and lower the loss ratio without compromising accuracy. 
+
+
+
+
+Finally, doubling hidden layer units to 256 seemed to improve result consistency, keeping testing loss below 0.2000 and accuracy close to 0.9500.
 
 Further changes or additions, appeared to be resource consuming with no overall improvement to the model accuracy.
 
 
-#### FINAL MODEL SUMMARY
-```
-Model: "sequential"
-_________________________________________________________________
-Layer (type)                 Output Shape              Param #   
-=================================================================
-conv2d (Conv2D)              (None, 28, 28, 32)        896       
-_________________________________________________________________
-max_pooling2d (MaxPooling2D) (None, 14, 14, 32)        0         
-_________________________________________________________________
-conv2d_1 (Conv2D)            (None, 12, 12, 32)        9248      
-_________________________________________________________________
-max_pooling2d_1 (MaxPooling2 (None, 6, 6, 32)          0         
-_________________________________________________________________
-flatten (Flatten)            (None, 1152)              0         
-_________________________________________________________________
-dense (Dense)                (None, 256)               295168    
-_________________________________________________________________
-dropout (Dropout)            (None, 256)               0         
-_________________________________________________________________
-dense_1 (Dense)              (None, 43)                11051     
-=================================================================
-Total params: 316,363
-Trainable params: 316,363
-Non-trainable params: 0
-_________________________________________________________________
-```
-
 #### BEST RUN
-
 ```
-Epoch 1/10
-500/500 [==============================] - 12s 23ms/step - loss: 2.0870 - accuracy: 0.5467
-Epoch 2/10
-500/500 [==============================] - 12s 25ms/step - loss: 0.4652 - accuracy: 0.8656
-Epoch 3/10
-500/500 [==============================] - 13s 26ms/step - loss: 0.2745 - accuracy: 0.9206
-Epoch 4/10
-500/500 [==============================] - 13s 26ms/step - loss: 0.2018 - accuracy: 0.9412
-Epoch 5/10
-500/500 [==============================] - 13s 26ms/step - loss: 0.1705 - accuracy: 0.9511
-Epoch 6/10
-500/500 [==============================] - 13s 26ms/step - loss: 0.1528 - accuracy: 0.9565
-Epoch 7/10
-500/500 [==============================] - 13s 26ms/step - loss: 0.1579 - accuracy: 0.9575
-Epoch 8/10
-500/500 [==============================] - 13s 27ms/step - loss: 0.1254 - accuracy: 0.9658
-Epoch 9/10
-500/500 [==============================] - 13s 26ms/step - loss: 0.1514 - accuracy: 0.9612
 Epoch 10/10
 500/500 [==============================] - 13s 26ms/step - loss: 0.1221 - accuracy: 0.9691
 333/333 - 2s - loss: 0.1240 - accuracy: 0.9742
 ```
+
+
+increasing second layer to 64 increased testing set accuracy 
