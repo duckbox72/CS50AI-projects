@@ -62,6 +62,9 @@ def load_data(data_dir):
     images = list()
     labels = list()
 
+    # Terminal LOG added for demo video purposes
+    print(f"\033[33mLOADING DATASET\033[m")
+
     # Iterate through the categories
     for category in range(NUM_CATEGORIES):
         # Set the path for current category using os.path.join to handle different OS's
@@ -75,7 +78,10 @@ def load_data(data_dir):
             # Add image to images and category to labels
             images.append(img)
             labels.append(category)
-         
+
+    # Terminal LOG added for demo video purposes
+    print(f"\033[32m{NUM_CATEGORIES} LABELED CATEGORIES SUCCESSFULLY LOADED!\033[m")
+
     return (images, labels)
 
 
@@ -124,7 +130,10 @@ def get_model():
     loss='categorical_crossentropy',
     metrics=['accuracy'])
 
-    print(model.summary())
+    # Terminal LOG added for demo video purposes
+    print(f"\033[36mCOMPLETE MODEL ARCHITETURE SUMMARY\033[m")
+    print(f"{model.summary()}")
+    
     return model
 
 if __name__ == "__main__":
