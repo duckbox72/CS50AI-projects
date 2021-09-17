@@ -1,4 +1,3 @@
-
 # Traffic
 Traffic is an implementation of a **Convolutional Neural Network** (CNN) built with TensorFlow Keras Sequential Model.
 
