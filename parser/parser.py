@@ -64,13 +64,13 @@ def preprocess(sentence):
     """
     words = list()
     tokens = nltk.word_tokenize(sentence)
-    print(tokens)
-
+    
     for token in tokens:
-        # Append to words if token has at least one alphabetic character
-        if token.isalnum() and not token.isnumeric():
+        # Append to words if token has at least one alphabetic character 
+        token = token.lower()
+        if token.islower():
             words.append(token.lower())
-    print(words)
+
     return words
 
 
