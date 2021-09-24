@@ -71,7 +71,7 @@ def preprocess(sentence):
     tokens = nltk.word_tokenize(sentence)
 
     for token in tokens:
-        # Append to words if token has at least one alphabetic character 
+        # Append token to words if it has at least one alphabetic character 
         token = token.lower()
         if token.islower():
             words.append(token.lower())
