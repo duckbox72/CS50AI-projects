@@ -82,6 +82,13 @@ def compute_idfs(documents):
     Any word that appears in at least one of the documents should be in the
     resulting dictionary.
     """
+
+    idf_values = dict()
+
+    for document in documents:
+        print(documents[document][0:10])
+
+
     raise NotImplementedError
 
 
