@@ -83,7 +83,7 @@ def compute_idfs(documents):
     Any word that appears in at least one of the documents should be in the
     resulting dictionary.
     """
-    words_idf = dict() # name_of_document: [words]
+    words_idf = dict()
     words = set()
     
     for document in documents:
@@ -107,7 +107,18 @@ def top_files(query, files, idfs, n):
     to their IDF values), return a list of the filenames of the the `n` top
     files that match the query, ranked according to tf-idf.
     """
-    raise NotImplementedError
+    ranking = dict()
+        
+    for filename, terms in files.items():
+        score = 0
+        for word in query:
+            if word in terms:
+                tf_idf = terms.count(word) * idfs[word]
+                score += tf_idf       
+        if score != 0:
+            ranking[filename] = score
+    
+    return [filename for filename, score in sorted(ranking.items(), key=lambda x: x[1], reverse=True)][:n]
 
 
 def top_sentences(query, sentences, idfs, n):
