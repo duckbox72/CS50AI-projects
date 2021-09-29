@@ -1,3 +1,4 @@
+import math
 import nltk
 import os
 import string
@@ -68,7 +69,7 @@ def tokenize(document):
     punctuation or English stopwords.
     """
     tokens = nltk.word_tokenize(document.lower())
-    # Filter out punctuation and stopwords.
+    # Filter out punctuation and stopwords
     words = [token for token in tokens if token not in string.punctuation and token not in nltk.corpus.stopwords.words("english")] 
     
     return words
@@ -82,14 +83,21 @@ def compute_idfs(documents):
     Any word that appears in at least one of the documents should be in the
     resulting dictionary.
     """
-
-    idf_values = dict()
-
+    words_idf = dict() # name_of_document: [words]
+    words = set()
+    
     for document in documents:
-        print(documents[document][0:10])
+        words = words.union({ word for word in documents[document]})      
 
+    for word in words:
+        documents_containing = 0
+        for document in documents.values():
+            if word in document:
+                documents_containing += 1
 
-    raise NotImplementedError
+        words_idf[word] = math.log(len(documents)/documents_containing)
+
+    return words_idf
 
 
 def top_files(query, files, idfs, n):
