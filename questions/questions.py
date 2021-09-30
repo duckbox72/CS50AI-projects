@@ -111,6 +111,7 @@ def top_files(query, files, idfs, n):
         
     for filename, terms in files.items():
         score = 0
+        
         for word in query:
             if word in terms:
                 tf_idf = terms.count(word) * idfs[word]
@@ -129,7 +130,20 @@ def top_sentences(query, sentences, idfs, n):
     the query, ranked according to idf. If there are ties, preference should
     be given to sentences that have a higher query term density.
     """
-    raise NotImplementedError
+    ranking = dict()
+
+    for sentence, terms in sentences.items():
+        score = 0
+        density = 0
+        
+        for word in query:
+            if word in terms:
+                score += idfs[word]
+                density += terms.count(word) / len(terms)
+        if score != 0:
+            ranking[sentence] = (score, density) 
+
+    return [sentence for sentence, measures in sorted(ranking.items(), key=lambda x: (x[1][0], x[1][1]), reverse=True)][:n]
 
 
 if __name__ == "__main__":
