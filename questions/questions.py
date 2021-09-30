@@ -87,7 +87,7 @@ def compute_idfs(documents):
     words = set()
     
     for document in documents:
-        words = words.union({ word for word in documents[document]})      
+        words = words.union({word for word in documents[document]})      
 
     for word in words:
         documents_containing = 0
