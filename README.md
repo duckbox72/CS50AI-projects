@@ -15,5 +15,5 @@ If you are taking the course please consider reading about the [CS50's Academic 
 
 ## Course Certificate
 
-![Certificate]('CS50.png')
+![Certificate]('https://github.com/duckbox72/CS50AI-projects/blob/main/CS50.png')
 
