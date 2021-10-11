@@ -15,5 +15,11 @@ If you are taking the course please consider reading about the [CS50's Academic 
 
 ## Course Certificate
 
-![Certificate]('https://github.com/duckbox72/CS50AI-projects/blob/main/CS50.png')
+![Certificate](cs50.png)
+
+## Professional Certificate
+
+* Computer Science for Artificial Intelligence
+[Professional Certificate ]('https://credentials.edx.org/credentials/7772d8388c694146b22a7b493750d2a2/')
+
 
