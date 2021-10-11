@@ -15,7 +15,7 @@ If you are taking the course please consider reading about the [CS50's Academic 
 
 ## Course Certificate
 
-![Certificate](cs50.png)
+![Certificate](CS50.png)
 
 ## Professional Certificate
 
