@@ -20,6 +20,6 @@ If you are taking the course please consider reading about the [CS50's Academic 
 ## Professional Certificate
 
 * Computer Science for Artificial Intelligence
-[Professional Certificate ]('https://credentials.edx.org/credentials/7772d8388c694146b22a7b493750d2a2/')
+[Professional Certificate]('https://credentials.edx.org/credentials/7772d8388c694146b22a7b493750d2a2/')
 
 
